@@ -1,5 +1,5 @@
 # RCM:
-The code of Reservior cross mapping (RCM)
+The code of Reservior cross mapping (RCM).
 We propose a causal detection method named Reservoir Cross Mapping (RCM), which integrates
 RC with MCM to address the limitations of MCM. RCM provides a nonlinear approach to causality
 detection without the need for pre-selecting phase space parameters. It takes time series of different
