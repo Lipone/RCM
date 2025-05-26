@@ -1,0 +1,90 @@
+  
+Top 1: Combination 182:
+Interpolation Factor: 5, Scale: 6, Method: spline, Norm1: 1, Norm2: 1
+Index Matrix:
+0.000000 0.146419 0.199523 
+0.138362 0.000000 0.114639 
+0.294996 0.104540 0.000000 
+Difference between 4th and 5th largest: 0.080418
+------------------------------------------------------
+
+Top 2: Combination 15:
+Interpolation Factor: 5, Scale: 10, Method: cubic, Norm1: 1, Norm2: 1
+Index Matrix:
+0.000000 0.109111 0.208167 
+0.105250 0.000000 0.079859 
+0.322360 0.057474 0.000000 
+Difference between 4th and 5th largest: 0.078766
+------------------------------------------------------
+
+Top 3: Combination 10:
+Interpolation Factor: 5, Scale: 6, Method: cubic, Norm1: 1, Norm2: 1
+Index Matrix:
+0.000000 0.264681 0.389984 
+0.259020 0.000000 0.219480 
+0.506997 0.180170 0.000000 
+Difference between 4th and 5th largest: 0.077989
+------------------------------------------------------
+
+Top 4: Combination 195:
+Interpolation Factor: 5, Scale: 10, Method: spline, Norm1: 0, Norm2: 1
+Index Matrix:
+0.000000 0.063018 0.101076 
+0.045590 0.000000 0.036379 
+0.118304 0.034922 0.000000 
+Difference between 4th and 5th largest: 0.077859
+------------------------------------------------------
+
+Top 5: Combination 181:
+Interpolation Factor: 5, Scale: 5, Method: spline, Norm1: 1, Norm2: 1
+Index Matrix:
+0.000000 0.201680 0.261012 
+0.192390 0.000000 0.164478 
+0.361559 0.152313 0.000000 
+Difference between 4th and 5th largest: 0.077199
+------------------------------------------------------
+
+Top 6: Combination 13:
+Interpolation Factor: 5, Scale: 10, Method: pchip, Norm1: 1, Norm2: 1
+Index Matrix:
+0.000000 0.102085 0.196296 
+0.095233 0.000000 0.073403 
+0.284602 0.054704 0.000000 
+Difference between 4th and 5th largest: 0.076704
+------------------------------------------------------
+
+Top 7: Combination 183:
+Interpolation Factor: 5, Scale: 10, Method: spline, Norm1: 1, Norm2: 1
+Index Matrix:
+0.000000 0.040675 0.068127 
+0.037014 0.000000 0.027053 
+0.130725 0.023199 0.000000 
+Difference between 4th and 5th largest: 0.076198
+------------------------------------------------------
+
+Top 8: Combination 8:
+Interpolation Factor: 5, Scale: 6, Method: pchip, Norm1: 1, Norm2: 1
+Index Matrix:
+0.000000 0.254319 0.376484 
+0.243933 0.000000 0.208655 
+0.470482 0.174909 0.000000 
+Difference between 4th and 5th largest: 0.074983
+------------------------------------------------------
+
+Top 9: Combination 5:
+Interpolation Factor: 5, Scale: 5, Method: cubic, Norm1: 1, Norm2: 1
+Index Matrix:
+0.000000 0.330320 0.456253 
+0.324423 0.000000 0.282594 
+0.567768 0.239737 0.000000 
+Difference between 4th and 5th largest: 0.073673
+------------------------------------------------------
+
+Top 10: Combination 12:
+Interpolation Factor: 5, Scale: 10, Method: spline, Norm1: 1, Norm2: 1
+Index Matrix:
+0.000000 0.110061 0.219366 
+0.113315 0.000000 0.085457 
+0.335214 0.058683 0.000000 
+Difference between 4th and 5th largest: 0.073398
+------------------------------------------------------

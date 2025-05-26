@@ -1,0 +1,152 @@
+load ("HKdata.mat")
+        data=y(:,100:10000);
+
+        Data= HKdata(:,:)';
+        % [Data, ps] = mapstd(data);% data normalization
+        resSize = 200; % number of RC neurons
+
+        load Reservior_Parameter.mat
+
+        initialen = 100;
+        trainlen =  900;%6000
+        len = initialen+trainlen;
+        testlen = 10;
+
+        r = zeros(resSize,1);
+        rtotal = zeros(resSize,len+testlen);
+        rtotal1 = zeros(resSize,len+testlen);
+        rtotal2 = zeros(resSize,len+testlen);
+
+
+        % training period
+        for i = 1:len+testlen
+            ut = Data(1,i);
+            r = (1-gamma)*r + gamma*(tanh( Win*ut + Wres*r));
+            rtotal1(:,i) = r;
+        end
+
+        r = zeros(resSize,1);
+        for i = 1:len+testlen
+            ut = Data(2,i);
+            r = (1-gamma)*r + gamma*(tanh( Win*ut + Wres*r));
+            rtotal2(:,i) = r;
+        end
+
+
+        rtotal1(2:2:end,:)=rtotal1(2:2:end,:).^2; % half neurons are nonlinear(even terms)
+        rtotal2(2:2:end,:)=rtotal2(2:2:end,:).^2; % half neurons are nonlinear(even terms)
+        rtrain1 = rtotal1(:,initialen+1:len);
+        rtrain2 = rtotal2(:,initialen+1:len);
+
+
+        % Tikhonov regularization to solve Wout
+        traindata =rtrain1 ;
+        rtrain=rtrain2;
+        beta = 1e-5; % regularization parameter
+        Wout = ((rtrain*rtrain' + beta*eye(resSize)) \ (rtrain*traindata'))';
+        trainoutput = Wout*rtrain2;
+        mse1=mean(mean((trainoutput-traindata).^2,2));
+
+        vv = rtotal2(:,len+1:len+testlen);
+        testoutput = Wout*vv;
+
+        testdata = rtotal1(:,len+1:len+testlen);
+        mse2=mean(mean((testoutput-testdata).^2,2));
+
+        %         Data1=rtrain1;
+        %         Data2=rtrain2;
+
+        [Data1, ps] = mapstd(rtrain1);% data normalization
+        [Data2, ps] = mapstd(rtrain2);% data normalization
+        resSize = 1000; % number of RC neurons
+
+        load("Embedding_reservior_parameter.mat")
+
+
+        initialen = 100;%1000
+        trainlen = 900;%1000
+        len = initialen+trainlen;
+        testlen = 10;%1000
+
+        r = zeros(resSize,1);
+        rtotal = zeros(resSize,len+testlen);
+
+        % training period
+        for i = 1:len+testlen
+            ut = Data2(:,i);
+            r = (1-gamma)*r + gamma*(tanh( Win*ut + Wres*r));
+            rtotal(:,i) = r;
+        end
+
+        rtotal(2:2:end,:)=rtotal(2:2:end,:).^2; % half neurons are nonlinear(even terms)
+
+        rtrain = rtotal(:,initialen+1:len);
+
+        % Tikhonov regularization to solve Wout
+        traindata =Data1(:,initialen+1:len) ;
+
+        beta = 1e-5; % regularization parameter 1e-8
+        Wout = ((rtrain*rtrain' + beta*eye(resSize)) \ (rtrain*traindata'))';
+        trainoutput = Wout*rtrain;
+        Mse1(a,q)=mean(mean((trainoutput-traindata).^2,2));
+
+        vv = rtotal(:,len+1:len+testlen);
+        testoutput = Wout*vv;
+
+        testdata = Data1(:,len+1:len+testlen);
+        Mse2(a,q)=mean(mean((testoutput-testdata).^2,2));
+        %         MyMse(a)=mean(sum((testoutput-testdata).^2,1))
+
+        testdata_mean=mean(testdata,2);
+        SUM=0;
+        for i=1:testlen
+            SUM=SUM+(testdata(:,i)-testdata_mean).^2;
+        end
+        NMSE2=Mse1(a,q)/mean(SUM);
+        %     MyNMse(runtime)=MyMse(runtime)/sum(SUM);
+
+        INDEX(a,q)=1/(1+10000*NMSE2)
+
+    end
+end
+
+t = (0:0.05:0.45);
+figure
+plot(t,INDEX)
+
+S = std(INDEX,0,2)
+
+ave = mean(INDEX(1,:));
+[m,n] = size(INDEX(1,:));
+res = 0;
+for i = 1:n
+    res = res + (INDEX(1,i)-ave)^2;
+end
+res = sqrt(res/n);
+
+
+
+
+color_all = [0.329411764705882,0.650980392156863,0.619607843137255;...
+    0.745098039215686,0.870588235294118,0.874509803921569;...
+    0.894117647058824,0.905882352941177,0.894117647058824;...
+    0.0156862745098039,0.282352941176471,0.419607843137255;...
+    0.305882352941177,0.541176470588235,0.317647058823529;
+    1.0,0.5,0.0;
+    0.5,0.7,0.4;];
+
+MEAN=(mean(INDEX,2))';
+S = std(INDEX,0,2)'
+x=0:0.05:0.45
+yu=MEAN+S;
+yl=MEAN-S;
+
+
+color_mean = color_all(6,:);
+color_between = color_all(6,:);
+figure('color',[1 1 1]);
+
+plot(x,MEAN,'Linewidth',3,'color',color_mean);
+axis([0,0.45,0,1])
+hold on;
+fill([x fliplr(x)], [yu fliplr(yl)], color_between, 'linestyle', 'none', 'FaceAlpha',0.5); 
